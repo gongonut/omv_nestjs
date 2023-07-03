@@ -2,6 +2,9 @@
 /dist
 /node_modules
 .env
+.eslintrc.js
+.gitignore
+.prettierrc
 
 # Logs
 logs
