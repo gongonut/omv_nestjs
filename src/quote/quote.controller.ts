@@ -3,7 +3,8 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  // Patch,
+  Put,
   Param,
   Delete,
 } from '@nestjs/common';
@@ -32,9 +33,9 @@ export class QuoteController {
     return await this.quoteService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQuoteDto: UpdateQuoteDto) {
-    return this.quoteService.update(id, updateQuoteDto);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateQuoteDto: UpdateQuoteDto) {
+    return await this.quoteService.update(id, updateQuoteDto);
   }
 
   @Delete(':id')

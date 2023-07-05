@@ -23,7 +23,7 @@ export class QuoteService {
   }
  
   async update(id: string, updateQuoteDto: UpdateQuoteDto): Promise<Quote> {
-    return await this.quoteModel.findByIdAndUpdate(id, updateQuoteDto, {new: true} ).exec();
+    return await this.quoteModel.findByIdAndUpdate(id, updateQuoteDto, {new: true} );
   }
 
   async remove(id: string) {
