@@ -8,16 +8,31 @@ export type QuoteDocument = HydratedDocument<Quote>;
 export class Quote {
 
   @Prop()
-  clientName: string;
+  client_name: string;
 
   @Prop()
-  phone: string;
+  client_contact: string;
 
   @Prop()
-  email: string;
+  client_phone: string;
+
+  @Prop()
+  client_email: string;
   
   @Prop()
-  observations: string;
+  client_observations: string;
+
+  @Prop()
+  agent_name: string;
+
+  @Prop()
+  agent_phone: string;
+
+  @Prop()
+  agent_email: string;
+  
+  @Prop()
+  agent_observations: string;
 
   @Prop()
   status: number;

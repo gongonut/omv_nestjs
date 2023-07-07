@@ -1,19 +1,35 @@
-import { IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsOptional, IsEmail } from 'class-validator';
 
 export class CreateQuoteDto {
   @IsNotEmpty()
   @IsString()
-  clientName: string;
+  client_name: string;
 
   @IsOptional()
-  phone: string;
+  client_contact: string;
+
+  @IsOptional()
+  client_phone?: string;
 
   @IsNotEmpty()
-  @IsString()
-  email: string;
+  @IsEmail()
+  client_email: string;
 
   @IsOptional()
-  observations: string;
+  client_observations: string;
+
+  @IsOptional()
+  agent_name: string;
+
+  @IsOptional()
+  agent_phone?: string;
+
+  @IsEmail()
+  @IsOptional()
+  agent_email: string;
+
+  @IsOptional()
+  agent_observations: string;
 
   @IsNotEmpty()
   @IsNumber()
