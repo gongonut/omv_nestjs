@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { QuoteModule } from './quote/quote.module';
 import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -12,21 +13,20 @@ import { MailerModule } from '@nestjs-modules/mailer';
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGO_USER}@cluster0.a6otiyi.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
     ),
-    /*
-    MailerModule.forRootAsync({
-      useFactory: () => ({
-        transport: process.env.SMPT_EMAIL,
-        port: 587,
-        secure: false,
+    
+    MailerModule.forRoot({
+        transport: {
+          host: process.env.SMPT_EMAIL_SHORT,
         auth: {
           user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS
+          pass: process.env.EMAIL_PASS_16
         }
-
-      }),
+      ,}
     }),
-    */
+    
     QuoteModule,
+    
+    EmailModule,
 
   ],
   controllers: [AppController],

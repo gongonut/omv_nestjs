@@ -11,6 +11,9 @@ export class Quote {
   client_name: string;
 
   @Prop()
+  consecutive?: string;
+
+  @Prop()
   client_contact: string;
 
   @Prop()
@@ -30,9 +33,9 @@ export class Quote {
 
   @Prop()
   agent_email: string;
-  
+
   @Prop()
-  agent_observations: string;
+  agent_city: string;
 
   @Prop()
   status: number;
@@ -42,6 +45,9 @@ export class Quote {
 
   @Prop()
   date: number;
+  
+  @Prop()
+  htmlQuote: string;
 }
 
 export const QuoteSchema = SchemaFactory.createForClass(Quote);

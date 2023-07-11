@@ -6,6 +6,9 @@ export class CreateQuoteDto {
   client_name: string;
 
   @IsOptional()
+  consecutive?: string;
+
+  @IsOptional()
   client_contact: string;
 
   @IsOptional()
@@ -16,7 +19,7 @@ export class CreateQuoteDto {
   client_email: string;
 
   @IsOptional()
-  client_observations: string;
+  agent_city: string;
 
   @IsOptional()
   agent_name: string;
@@ -40,4 +43,7 @@ export class CreateQuoteDto {
 
   @IsNumber()
   date: number;
+
+  @IsOptional()
+  htmlQuote: string;
 }
