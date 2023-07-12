@@ -13,19 +13,30 @@ import { EmailModule } from './email/email.module';
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGO_USER}@cluster0.a6otiyi.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
     ),
-    
+
     MailerModule.forRoot({
-        transport: {
+      transport: {
+        host: process.env.SMPT_EMAIL_LONG,
+        port: 465,
+        secure: true, // use SSL
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS_16
+        }
+      }
+      /* 
+      transport: {
           host: process.env.SMPT_EMAIL_SHORT,
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS_16
         }
       ,}
+      */
     }),
-    
+
     QuoteModule,
-    
+
     EmailModule,
 
   ],
