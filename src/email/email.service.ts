@@ -13,8 +13,9 @@ export class EmailService {
       await this.mails.sendMail({
           to: updateQuoteDto.client_email,
           from: updateQuoteDto.agent_email,
-          subject: 'Respuesta a su solicitud',
-          html: updateQuoteDto.htmlQuote
+          subject: 'Respuesta a su solicitud de cotización',
+          // html: updateQuoteDto.htmlQuote,
+          attachments: [{filename: `${updateQuoteDto.client_name}_cotiza.html`, content: updateQuoteDto.htmlQuote}]
       })
    return 'ok';
   }
