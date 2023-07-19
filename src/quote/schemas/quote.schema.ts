@@ -48,6 +48,9 @@ export class Quote {
   
   @Prop()
   htmlQuote: string;
+
+  @Prop()
+  p_iva: number;
 }
 
 export const QuoteSchema = SchemaFactory.createForClass(Quote);

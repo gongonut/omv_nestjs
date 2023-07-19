@@ -46,4 +46,7 @@ export class CreateQuoteDto {
 
   @IsOptional()
   htmlQuote: string;
+
+  @IsOptional()
+  p_iva: number;
 }
