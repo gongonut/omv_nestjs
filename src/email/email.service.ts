@@ -7,17 +7,28 @@ import { UpdateQuoteDto } from 'src/quote/dto/update-quote.dto';
 @Injectable()
 export class EmailService {
 
-  constructor(private mails: MailerService) {}
+  constructor(private mails: MailerService) { }
 
   async quoteEmail(updateQuoteDto: UpdateQuoteDto) {
-      await this.mails.sendMail({
-          to: updateQuoteDto.client_email,
-          from: updateQuoteDto.agent_email,
-          subject: 'Respuesta a su solicitud de cotización',
-          // html: updateQuoteDto.htmlQuote,
-          attachments: [{filename: `${updateQuoteDto.client_name}_cotiza.html`, content: updateQuoteDto.htmlQuote}]
-      })
-   return 'ok';
+    await this.mails.sendMail({
+      to: updateQuoteDto.client_email,
+      from: updateQuoteDto.agent_email,
+      subject: 'Respuesta a su solicitud de cotización',
+      // html: updateQuoteDto.htmlQuote,
+      attachments: [{ filename: `${updateQuoteDto.client_name}_cotiza.html`, content: updateQuoteDto.htmlQuote }]
+    })
+    return 'ok';
+  }
+
+  async defaultEmailHtml(emailDto: UpdateEmailDto) {
+    await this.mails.sendMail({
+      to: emailDto.to,
+      from: emailDto.from,
+      subject: emailDto.subject,
+      html: emailDto.html,
+      // attachments: emailDto.attachments
+    })
+    return 'ok';
   }
 
   /*

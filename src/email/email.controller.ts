@@ -7,6 +7,11 @@ import { UpdateEmailDto } from './dto/update-email.dto';
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
+  @Post()
+  defEmailHtml(@Body() createEmailDto: CreateEmailDto) {
+    return this.emailService.defaultEmailHtml(createEmailDto);
+  }
+
   /*
   @Post()
   create(@Body() createEmailDto: CreateEmailDto) {

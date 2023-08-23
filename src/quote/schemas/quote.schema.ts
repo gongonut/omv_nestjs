@@ -7,7 +7,7 @@ export type QuoteDocument = HydratedDocument<Quote>;
 @Schema()
 export class Quote {
 
-  @Prop()
+  @Prop({required: true})
   client_name: string;
 
   @Prop()
@@ -19,7 +19,7 @@ export class Quote {
   @Prop()
   client_phone: string;
 
-  @Prop()
+  @Prop({required: true})
   client_email: string;
   
   @Prop()
@@ -40,7 +40,7 @@ export class Quote {
   @Prop()
   status: number;
 
-  @Prop()
+  @Prop([Object])
   itemList: object[];
 
   @Prop()

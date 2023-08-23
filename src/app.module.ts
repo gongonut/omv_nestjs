@@ -6,6 +6,7 @@ import { QuoteModule } from './quote/quote.module';
 import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EmailModule } from './email/email.module';
+import { CatalogModule } from './catalog/catalog.module';
 
 @Module({
   imports: [
@@ -34,11 +35,9 @@ import { EmailModule } from './email/email.module';
       ,}
       */
     }),
-
     QuoteModule,
-
     EmailModule,
-
+    CatalogModule,
   ],
   controllers: [AppController],
   providers: [AppService],
