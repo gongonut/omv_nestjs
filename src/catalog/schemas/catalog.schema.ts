@@ -25,8 +25,8 @@ export class Catalog {
     @Prop()
     precio?: number;
 
-    @Prop()
-    subcategoria_1: object[];
+    @Prop({type: 'object'})
+    subcategoria_1: object;
 
     @Prop()
     materiales?: object[];

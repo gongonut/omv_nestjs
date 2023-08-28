@@ -22,7 +22,7 @@ export class CreateCatalogDto {
     precio: number;
 
     @IsNotEmpty()
-    subcategoria_1: object[];
+    subcategoria_1: object;
 
     @IsNotEmpty()
     'materiales': object[];

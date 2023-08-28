@@ -21,8 +21,8 @@ export class CatalogService {
     // return await createdCatalog.save();
   }
 
-  findAll() {
-    return `This action returns all catalog`;
+  async findAll() {
+    return await this.catalogModel.find().exec();
   }
 
   findOne(id: number) {
