@@ -36,8 +36,6 @@ async function bootstrap() {
   // https://stackoverflow.com/questions/54680459/serving-static-content-alongisde-angular-app
   app.useStaticAssets(join(__dirname, '..', 'page'), { prefix: "/page/" });
   app.useStaticAssets(join(__dirname, '..', 'app'), { prefix: "/app/" });
-  // app.setViewEngine('html');
-  
 
   await app.listen(process.env.PORT);
 }
