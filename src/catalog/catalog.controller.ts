@@ -30,8 +30,9 @@ export class CatalogController {
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
     // return of(res.sendFile(join(process.cwd(), 'images', imagename)))
-    console.log(join('./images', imagename));
-    return of(res.sendFile(join(process.cwd(), './images', imagename)))
+    // console.log(join('./images', imagename));
+    return of(res.sendFile(join('./images', imagename)))
+    // return of(res.sendFile(join(process.cwd(), './images', imagename)))
   }
 
   @Post('images2dtbase')
