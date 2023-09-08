@@ -45,3 +45,11 @@ bootstrap();
 // https://www.youtube.com/watch?v=xRXHQlqA3Ak&t=2s min 12 para atlas mongo
 
 // create basic html index?
+
+/*
+SMPT_EMAIL_SHORT=gmail
+SMPT_EMAIL_LONG=smtp.gmail.com
+EMAIL_USER=omvpublicidadcotiza@gmail.com
+EMAIL_PASS=omb_12346
+EMAIL_PASS_16=hdqcevfpdefmcybx
+*/

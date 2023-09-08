@@ -18,7 +18,7 @@ import { CatalogModule } from './catalog/catalog.module';
     MailerModule.forRoot({
       transport: {
         host: process.env.SMPT_EMAIL_LONG,
-        port: 465,
+        port: process.env.SMPT_PORT,
         secure: true, // use SSL
         auth: {
           user: process.env.EMAIL_USER,
