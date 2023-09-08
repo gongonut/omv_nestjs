@@ -29,20 +29,20 @@ export class CatalogController {
 
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
-    // return of(res.sendFile(join('./images', imagename)))
-    return of(res.sendFile(join(process.cwd(), 'images', imagename)))
+    // return of(res.sendFile(join(process.cwd(), 'images', imagename)))
+    console.log(join('./images', imagename));
+    return of(res.sendFile(join(process.cwd(), './images', imagename)))
   }
 
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files', 10000, {
     storage: diskStorage({
-      destination: join(process.cwd(), 'images'), // './images', // join(__dirname + `${this.IMAGEFOLDER}`),
+      destination: './images', // join(process.cwd(), 'images'), // './images', // join(__dirname + `${this.IMAGEFOLDER}`),
       filename: function (req, file, cb) { cb(null, file.originalname) }
     })
   }))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    console.log(join(process.cwd(), 'images'));
-
+    // console.log(join(process.cwd(), 'images'));
     return { status: 200, message: 'success' }
   }
 
