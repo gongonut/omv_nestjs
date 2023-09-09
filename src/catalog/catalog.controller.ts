@@ -8,7 +8,7 @@ import { diskStorage } from 'multer';
 import { CellErrorValue, CellFormulaValue, CellHyperlinkValue, CellRichTextValue, CellSharedFormulaValue, Workbook } from 'exceljs';
 // import { Stream } from 'stream';
 import { Catalog, CatalogSchema } from './schemas/catalog.schema';
-// import * as fs from 'fs';
+import * as fs from 'fs';
 import { Observable, of } from 'rxjs';
 import path, { join } from 'path';
 
@@ -27,19 +27,10 @@ export class CatalogController {
     return this.catalogService.findAll();
   }
 
-  @Get(':imagename')
-  getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
-    // return of(res.sendFile(join(process.cwd(), 'images', imagename)))
-    // console.log(join(__dirname, '..', '..', 'images', imagename));
-    return of(res.sendFile(join(__dirname, '..', 'public/images', imagename)))
-    // return of(res.sendFile(join(process.cwd(), './images', imagename)))
-  }
-
-
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files', 10000, {
     storage: diskStorage({
-      destination: join(__dirname, '..', 'public/images'), // join(process.cwd(), 'images'), // './images', // join(__dirname + `${this.IMAGEFOLDER}`),
+      destination: './images', // join(__dirname, '..', 'public/images'), // join(process.cwd(), 'images'), // join(__dirname + `${this.IMAGEFOLDER}`),
       filename: function (req, file, cb) { cb(null, file.originalname) }
     })
   }))
@@ -60,7 +51,7 @@ export class CatalogController {
     )
   )
   async excel2Mongodb(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
+    // console.log(file);
     const itemArray: Catalog[] = [];
     const workbook = new Workbook();
     await workbook.xlsx.readFile(file.path).then((workbook) => {
@@ -77,11 +68,11 @@ export class CatalogController {
         let sm = '';
         let md = '';
         if (worksheetProd.getRow(i).getCell(8).value &&
-        worksheetProd.getRow(i).getCell(8).value.toString().length > 0) {
+          worksheetProd.getRow(i).getCell(8).value.toString().length > 0) {
           sm = this.getImageName(worksheetProd.getRow(i).getCell(8).value.toString());
         }
         if (worksheetProd.getRow(i).getCell(9).value &&
-        worksheetProd.getRow(i).getCell(9).value.toString().length > 0) {
+          worksheetProd.getRow(i).getCell(9).value.toString().length > 0) {
           md = this.getImageName(worksheetProd.getRow(i).getCell(9).value.toString());
         }
         const ImageData = {
@@ -312,5 +303,31 @@ async excel2Mongodb(@UploadedFile() file: Express.Multer.File) {
     col--;
     const imgNm = this.imgNamesArray.find(img => img.row === row && img.col === col);
     if (imgNm) { return imgNm.name } else { return '' }
+  }
+*/
+
+/*
+@Get('filelist/:dir')
+  fileStructure(@Param('dir') dir, @Res() res): Observable<object> {
+    const strfiles = fs.readdirSync(dir);
+    return of(strfiles);
+    
+  }
+*/
+  /*
+    const Results: Array<string> = new Array<string>()
+    fs.readdir(dir, (err, files) => {
+      files.forEach(file => {
+        console.log(file);
+        Results.push(file);
+      });
+    });
+    return of(Results);
+    */
+/*
+  @Get(':imagename')
+  getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
+    // console.log(join('./images', imagename));
+    return of(res.sendFile(join('./images', imagename)))
   }
 */
