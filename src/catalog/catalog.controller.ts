@@ -31,14 +31,15 @@ export class CatalogController {
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
     // return of(res.sendFile(join(process.cwd(), 'images', imagename)))
     // console.log(join(__dirname, '..', '..', 'images', imagename));
-    return of(res.sendFile(join(__dirname, '..', '..', 'images', imagename)))
+    return of(res.sendFile(join(__dirname, 'images', imagename)))
     // return of(res.sendFile(join(process.cwd(), './images', imagename)))
   }
+
 
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files', 10000, {
     storage: diskStorage({
-      destination: './images', // join(process.cwd(), 'images'), // './images', // join(__dirname + `${this.IMAGEFOLDER}`),
+      destination: join(__dirname, 'images'), // join(process.cwd(), 'images'), // './images', // join(__dirname + `${this.IMAGEFOLDER}`),
       filename: function (req, file, cb) { cb(null, file.originalname) }
     })
   }))
