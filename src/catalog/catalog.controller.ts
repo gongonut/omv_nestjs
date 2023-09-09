@@ -30,8 +30,8 @@ export class CatalogController {
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
     // return of(res.sendFile(join(process.cwd(), 'images', imagename)))
-    // console.log(join('./images', imagename));
-    return of(res.sendFile(join('./images', imagename)))
+    // console.log(join(__dirname, '..', '..', 'images', imagename));
+    return of(res.sendFile(join(__dirname, '..', '..', 'images', imagename)))
     // return of(res.sendFile(join(process.cwd(), './images', imagename)))
   }
 
@@ -59,6 +59,7 @@ export class CatalogController {
     )
   )
   async excel2Mongodb(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
     const itemArray: Catalog[] = [];
     const workbook = new Workbook();
     await workbook.xlsx.readFile(file.path).then((workbook) => {
