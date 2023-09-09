@@ -36,7 +36,8 @@ export class CatalogController {
   }))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     // console.log(files);
-    return { status: 200, message: 'success' }
+    return { status: 200, message: files[0] }
+
   }
 
   @Post('excel2Mongodb')
