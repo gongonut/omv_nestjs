@@ -30,7 +30,7 @@ export class CatalogController {
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files', 10000, {
     storage: diskStorage({
-      destination: './images', // join(__dirname, '..', 'public/images'), // join(process.cwd(), 'images'), // join(__dirname + `${this.IMAGEFOLDER}`),
+      destination: 'images/', // join(__dirname, '..', 'public/images'), // join(process.cwd(), 'images'), // join(__dirname + `${this.IMAGEFOLDER}`),
       filename: function (req, file, cb) { cb(null, file.originalname) }
     })
   }))
