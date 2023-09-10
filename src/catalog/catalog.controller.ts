@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, HttpException, HttpStatus, UploadedFile, Res, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, HttpException, HttpStatus, UploadedFile, Res, UploadedFiles, Req } from '@nestjs/common';
 import { CatalogService } from './catalog.service';
 import { CreateCatalogDto } from './dto/create-catalog.dto';
 import { UpdateCatalogDto } from './dto/update-catalog.dto';
@@ -30,14 +30,22 @@ export class CatalogController {
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files', 10000, {
     storage: diskStorage({
-      destination: 'public/images/', // join(__dirname, '..', 'public/images'), // join(process.cwd(), 'images'), // join(__dirname + `${this.IMAGEFOLDER}`),
+      destination: 'public/images/',
       filename: function (req, file, cb) { cb(null, file.originalname) }
     })
   }))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    // console.log(files);
+    files.forEach(image => {
+      // const data = Buffer.from(image.buffer);
+      
+      const apath = join(__dirname, '..', '..', image.path);
+      const data = fs.readFileSync(apath);
+      // const data = fs.createReadStream(image.originalname);
+      // const filePath = join(__dirname, '..', '..', 'public', image.originalname);
+      fs.writeFileSync(apath, data);
+    })
+    
     return { status: 200, message: files[0] }
-
   }
 
   @Post('excel2Mongodb')
@@ -315,16 +323,16 @@ async excel2Mongodb(@UploadedFile() file: Express.Multer.File) {
     
   }
 */
-  /*
-    const Results: Array<string> = new Array<string>()
-    fs.readdir(dir, (err, files) => {
-      files.forEach(file => {
-        console.log(file);
-        Results.push(file);
-      });
+/*
+  const Results: Array<string> = new Array<string>()
+  fs.readdir(dir, (err, files) => {
+    files.forEach(file => {
+      console.log(file);
+      Results.push(file);
     });
-    return of(Results);
-    */
+  });
+  return of(Results);
+  */
 /*
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
