@@ -33,20 +33,18 @@ export class CatalogController {
     return of(res.sendFile(join(__dirname, imagename)))
   }
 
-  @Post('upload')
+  @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files'))
   uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
-    // fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
-    console.log(files);
+    // console.log(files);
     files.forEach(image => {
       const apath = join(__dirname, image.originalname);
       console.log("apath", apath);
-      // const data = Buffer(image.buffer)
       fs.writeFileSync(apath, image.buffer);
     })
   }
 
-
+/*
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files', 10000, {
     storage: diskStorage({
@@ -65,6 +63,7 @@ export class CatalogController {
 
     return { status: 200, message: 'ok' }
   }
+  */
 
 
   @Post('excel2Mongodb')
