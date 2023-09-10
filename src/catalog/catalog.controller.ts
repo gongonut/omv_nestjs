@@ -27,6 +27,7 @@ export class CatalogController {
     return this.catalogService.findAll();
   }
 
+  /*
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files', 10000, {
     storage: diskStorage({
@@ -35,18 +36,16 @@ export class CatalogController {
     })
   }))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    files.forEach(image => {
-      // const data = Buffer.from(image.buffer);
-      
-      const apath = join(__dirname, '..', '..', image.path);
-      const data = fs.readFileSync(apath);
-      // const data = fs.createReadStream(image.originalname);
-      // const filePath = join(__dirname, '..', '..', 'public', image.originalname);
-      fs.writeFileSync(apath, data);
-    })
     
-    return { status: 200, message: files[0] }
+    // files.forEach(image => {
+      // const apath = join(__dirname, '..', '..', image.path);
+      // const data = fs.readFileSync(apath);
+      // fs.writeFileSync(apath, data);
+    // })
+    
+    return { status: 200, message: 'ok' }
   }
+  */
 
   @Post('excel2Mongodb')
   @UseInterceptors(

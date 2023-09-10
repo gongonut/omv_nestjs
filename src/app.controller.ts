@@ -14,12 +14,15 @@ export class AppController {
 
   @Get('assets/images/:imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
+    console.log(join(__dirname, '..', 'public/assets/images', imagename));
     return of(res.sendFile(join(__dirname, '..', 'public/assets/images', imagename)))
   }
 
   @Get('images/:imagename')
   getCatImage(@Param('imagename') imagename, @Res() res): Observable<object> {
-    return of(res.sendFile(join(__dirname, '..', 'public/images', imagename)))
+    console.log(join(__dirname, '..', 'public/images', imagename));
+    // return of(res.sendFile(join(__dirname, '..', 'public/images', imagename)))
+    return of(res.sendFile(join(__dirname, '..', 'public/assets/images', imagename)))
   }
 
 }
