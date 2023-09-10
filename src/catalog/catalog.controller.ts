@@ -19,7 +19,7 @@ interface ImgName { row: number, col: number, name: string }
 export class CatalogController {
   imgNamesArray: ImgName[] = [];
   constructor(private readonly catalogService: CatalogService) { }
-  // private IMAGEFOLDER = 'catalog';
+  private IMAGEFOLDER = 'catalog';
   // private IMAGEGETFOLDER = 'http://localhost:3000/catalog/';
 
   @Get()
@@ -30,15 +30,18 @@ export class CatalogController {
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
     // console.log(join('./images', imagename));
-    return of(res.sendFile(join(__dirname, imagename)))
+    return of(res.sendFile(join(__dirname, '..', this.IMAGEFOLDER, imagename)))
   }
 
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files'))
-  uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
+  uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     // console.log(files);
+    fs.rmSync(join(__dirname, '..', this.IMAGEFOLDER), { recursive: true, force: true });
+    fs.mkdirSync(join(__dirname, '..', this.IMAGEFOLDER));
+    
     files.forEach(image => {
-      const apath = join(__dirname, image.originalname);
+      const apath = join(__dirname, '..', this.IMAGEFOLDER, image.originalname);
       console.log("apath", apath);
       fs.writeFileSync(apath, image.buffer);
     })
