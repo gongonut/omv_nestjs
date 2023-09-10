@@ -17,11 +17,9 @@ export class AppController {
     return of(res.sendFile(join(__dirname, '..', 'public/assets/images', imagename)))
   }
 
-  /*
-  @Get('catalog/images/:imagename')
-  getCatalogByName(@Param('imagename') imagename, @Res() res): Observable<object> {
-    return of(res.sendFile(join(__dirname, '..', 'images', imagename)))
+  @Get('images/:imagename')
+  getCatImage(@Param('imagename') imagename, @Res() res): Observable<object> {
+    return of(res.sendFile(join(__dirname, '..', 'public/images', imagename)))
   }
-  */
 
 }
