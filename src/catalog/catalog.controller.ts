@@ -19,7 +19,7 @@ interface ImgName { row: number, col: number, name: string }
 export class CatalogController {
   imgNamesArray: ImgName[] = [];
   constructor(private readonly catalogService: CatalogService) { }
-  // private IMAGEFOLDER = '/catalog/';
+  // private IMAGEFOLDER = 'catalog';
   // private IMAGEGETFOLDER = 'http://localhost:3000/catalog/';
 
   @Get()
@@ -27,25 +27,45 @@ export class CatalogController {
     return this.catalogService.findAll();
   }
 
-  /*
+  @Get(':imagename')
+  getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
+    // console.log(join('./images', imagename));
+    return of(res.sendFile(join(__dirname, imagename)))
+  }
+
+  @Post('upload')
+  @UseInterceptors(FilesInterceptor('files'))
+  uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
+    // fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
+    console.log(files);
+    files.forEach(image => {
+      const apath = join(__dirname, image.originalname);
+      console.log("apath", apath);
+      // const data = Buffer(image.buffer)
+      fs.writeFileSync(apath, image.buffer);
+    })
+  }
+
+
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files', 10000, {
     storage: diskStorage({
-      destination: 'public/images/',
+      destination: 'images/',
       filename: function (req, file, cb) { cb(null, file.originalname) }
     })
   }))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    
+
     // files.forEach(image => {
-      // const apath = join(__dirname, '..', '..', image.path);
-      // const data = fs.readFileSync(apath);
-      // fs.writeFileSync(apath, data);
+    // const apath = join(__dirname, '..', '..', image.path);
+    // const data = fs.readFileSync(apath);
+    // fs.writeFileSync(apath, data);
     // })
-    
+
+
     return { status: 200, message: 'ok' }
   }
-  */
+
 
   @Post('excel2Mongodb')
   @UseInterceptors(
