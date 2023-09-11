@@ -19,7 +19,7 @@ interface ImgName { row: number, col: number, name: string }
 export class CatalogController {
   imgNamesArray: ImgName[] = [];
   constructor(private readonly catalogService: CatalogService) { }
-  private IMAGEFOLDER = 'catalogos';
+  private IMAGEFOLDER = '/images/';
   // private IMAGEGETFOLDER = 'http://localhost:3000/catalog/';
 
   @Get()
@@ -30,18 +30,27 @@ export class CatalogController {
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
     // console.log(join('./images', imagename));
-    return of(res.sendFile(join(__dirname, '..', this.IMAGEFOLDER, imagename)))
+    return of(res.sendFile(join(__dirname + `${this.IMAGEFOLDER}${imagename}`)))
   }
+
+  /*
+  @Get(':imagename')
+  getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
+    // console.log(join('./images', imagename));
+    return of(res.sendFile(join('./images', imagename)))
+  }
+  */
 
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     // console.log(files);
-    fs.rmSync(join(__dirname, '..', this.IMAGEFOLDER), { recursive: true, force: true });
-    fs.mkdirSync(join(__dirname, '..', this.IMAGEFOLDER));
+    fs.rmSync(join(join(__dirname + this.IMAGEFOLDER)), { recursive: true, force: true });
+    fs.mkdirSync(join(join(__dirname + this.IMAGEFOLDER)));
     
     files.forEach(image => {
-      const apath = join(__dirname, '..', this.IMAGEFOLDER, image.originalname);
+      const apath = join(__dirname, this.IMAGEFOLDER, image.originalname);
+      join(__dirname + `${this.IMAGEFOLDER}${image.originalname}`)
       console.log("apath", apath);
       fs.writeFileSync(apath, image.buffer);
     })
