@@ -45,8 +45,8 @@ export class CatalogController {
   @UseInterceptors(FilesInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     
-    fs.rmSync(join(join(__dirname + this.IMAGEFOLDER)), { recursive: true, force: true });
-    fs.mkdirSync(join(join(__dirname + this.IMAGEFOLDER)));
+    fs.rmSync(join(__dirname + this.IMAGEFOLDER), { recursive: true, force: true });
+    fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
     
     files.forEach(image => {
       const apath = join(__dirname + `${this.IMAGEFOLDER}${image.originalname}`)
