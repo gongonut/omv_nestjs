@@ -19,7 +19,7 @@ interface ImgName { row: number, col: number, name: string }
 export class CatalogController {
   imgNamesArray: ImgName[] = [];
   constructor(private readonly catalogService: CatalogService) { }
-  private IMAGEFOLDER = 'catalog';
+  private IMAGEFOLDER = 'catalogos';
   // private IMAGEGETFOLDER = 'http://localhost:3000/catalog/';
 
   @Get()
