@@ -44,16 +44,15 @@ export class CatalogController {
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    // console.log(files);
+    
     fs.rmSync(join(join(__dirname + this.IMAGEFOLDER)), { recursive: true, force: true });
     fs.mkdirSync(join(join(__dirname + this.IMAGEFOLDER)));
     
     files.forEach(image => {
-      const apath = join(__dirname, this.IMAGEFOLDER, image.originalname);
-      join(__dirname + `${this.IMAGEFOLDER}${image.originalname}`)
-      console.log("apath", apath);
+      const apath = join(__dirname + `${this.IMAGEFOLDER}${image.originalname}`)
       fs.writeFileSync(apath, image.buffer);
     })
+    return { status: 200, message: join(__dirname + `${this.IMAGEFOLDER}archivo`) }
   }
 
 /*
