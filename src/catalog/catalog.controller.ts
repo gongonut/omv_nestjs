@@ -30,7 +30,7 @@ export class CatalogController {
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
     // console.log(join('./images', imagename));
-    return of(res.sendFile(join(__dirname + `${this.IMAGEFOLDER}${imagename}`)))
+    return of(res.sendFile(join(__dirname + `${this.IMAGEFOLDER}${imagename.toUpperCase()}`)))
   }
 
   /*
@@ -47,12 +47,12 @@ export class CatalogController {
     
     fs.rmSync(join(__dirname + this.IMAGEFOLDER), { recursive: true, force: true });
     fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
-    
+    let apath = '';
     files.forEach(image => {
-      const apath = join(__dirname + `${this.IMAGEFOLDER}${image.originalname}`)
+      apath = join(__dirname + `${this.IMAGEFOLDER}${image.originalname.toUpperCase()}`)
       fs.writeFileSync(apath, image.buffer);
     })
-    return { status: 200, message: join(__dirname + `${this.IMAGEFOLDER}archivo`) }
+    return { status: 200, message: apath }
   }
 
 /*
