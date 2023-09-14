@@ -27,7 +27,6 @@ export class CreateQuoteDto {
   @IsOptional()
   agent_phone?: string;
 
-  @IsEmail()
   @IsOptional()
   agent_email: string;
 
