@@ -27,6 +27,8 @@ async function bootstrap() {
     .setDescription('Documentación para acceder a las APIs de omv')
     .setVersion('1.0')
     .addTag('quote')
+    .addTag('email')
+    .addTag('users')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
