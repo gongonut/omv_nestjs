@@ -14,7 +14,7 @@ import { JwtStrategy } from './local.strategy';
     ConfigModule,
     JwtModule.register({
       secret: process.env.JWT_SEED,
-      signOptions: { expiresIn: '10h' },
+      signOptions: { expiresIn: '2h' },
     }),
   ],
   controllers: [UsersController],

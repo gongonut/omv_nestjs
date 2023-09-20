@@ -9,4 +9,4 @@ import { ConfigModule } from '@nestjs/config';
   providers: [EmailService],
   exports: [EmailService]
 })
-export class EmailModule {}
+export class EmailModule { }

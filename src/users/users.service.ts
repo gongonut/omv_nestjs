@@ -17,7 +17,7 @@ export class UsersService {
 
   async create(registerUserDto: RegisterUserDto) {
     const { password } = registerUserDto;
-    const plainToHash = await hash(password, process.env.HASH);
+    const plainToHash = await hash(password, Number(process.env.HASH));
     registerUserDto = {...registerUserDto, password: plainToHash};
     return this.usersModel.create(registerUserDto);
     // return 'This action adds a new user';
@@ -41,15 +41,26 @@ export class UsersService {
     return await this.usersModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(email: string) {
+    return await this.usersModel.find({email: email}).exec();
   }
 
-  update(id: number, updateUserDto: RegisterUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: RegisterUserDto) {
+    const { rol } = updateUserDto;
+    const filter = { '_id': id };
+    const update = { 'rol': rol };
+    
+    // `doc` is the document _after_ `update` was applied because of
+    // `new: true`
+    await this.usersModel.findOneAndUpdate(filter, update, {returnOriginal: false});
+    /*
+    const { rol } = updateUserDto;
+    const fields = [{propName: 'rol', value: rol}];
+    return await this.usersModel.findByIdAndUpdate(id, { $set: fields }, {new: true} );
+    */
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    return await this.usersModel.findByIdAndRemove(id);
   }
 }
