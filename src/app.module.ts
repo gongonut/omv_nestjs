@@ -8,6 +8,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { EmailModule } from './email/email.module';
 import { CatalogModule } from './catalog/catalog.module';
 import { UsersModule } from './users/users.module';
+import { GeneralModule } from './general/general.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { UsersModule } from './users/users.module';
     EmailModule,
     CatalogModule,
     UsersModule,
+    GeneralModule,
   ],
   controllers: [AppController],
   providers: [AppService],
