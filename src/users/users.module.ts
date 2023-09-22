@@ -11,7 +11,7 @@ import { JwtStrategy } from './local.strategy';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Users.name, schema: UsersSchema }]),
-    ConfigModule,
+    ConfigModule.forRoot(),
     JwtModule.register({
       secret: process.env.JWT_SEED,
       signOptions: { expiresIn: '2h' },

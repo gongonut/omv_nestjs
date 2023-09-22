@@ -8,4 +8,8 @@ export class CreateGeneralDto {
     @IsNumber()
     @IsOptional()
     p_iva: number;
+
+    @IsNumber()
+    @IsOptional()
+    consecutive: number;
 }

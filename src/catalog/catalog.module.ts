@@ -8,7 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Catalog.name, schema: CatalogSchema }]),
-    ConfigModule,
+    ConfigModule.forRoot(),
 ],
   controllers: [CatalogController],
   providers: [CatalogService]

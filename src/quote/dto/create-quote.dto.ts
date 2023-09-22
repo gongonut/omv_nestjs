@@ -22,6 +22,9 @@ export class CreateQuoteDto {
   agent_city: string;
 
   @IsOptional()
+  agent_id: string;
+
+  @IsOptional()
   agent_name: string;
 
   @IsOptional()

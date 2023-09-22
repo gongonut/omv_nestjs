@@ -5,11 +5,13 @@ import { QuoteController } from './quote.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Quote, QuoteSchema } from './schemas/quote.schema';
 import { EmailModule } from 'src/email/email.module';
+import { GeneralModule } from 'src/general/general.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Quote.name, schema: QuoteSchema }]),
-    EmailModule
+    EmailModule,
+    GeneralModule
   ],
   controllers: [QuoteController],
   providers: [QuoteService]

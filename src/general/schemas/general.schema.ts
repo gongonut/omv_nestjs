@@ -15,6 +15,10 @@ export class General {
 
   @Prop()
   p_iva: number;
+
+  @Prop()
+  consecutive: number;
+
 }
 
 export const GeneralSchema = SchemaFactory.createForClass(General);

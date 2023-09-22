@@ -7,11 +7,15 @@ import {
   Put,
   Param,
   Delete,
+  UseGuards,
+  Query,
 } from '@nestjs/common';
 import { QuoteService } from './quote.service';
 import { CreateQuoteDto } from './dto/create-quote.dto';
 import { UpdateQuoteDto } from './dto/update-quote.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/users/roles.decorator';
+import { RolesGuard } from 'src/users/roles.guard';
 
 
 @ApiTags('quote')
@@ -27,9 +31,20 @@ export class QuoteController {
     return await this.quoteService.create(createQuoteDto);
   }
 
+  @Roles('Q')
+  @UseGuards(RolesGuard)
   @Get()
   async findAll() {
     return await this.quoteService.findAll();
+  }
+
+  @Roles('Q')
+  @UseGuards(RolesGuard)
+  @Get('filter/data?')
+  async findByFilter(@Query('status') status: number, @Query('agent_id') agent_id: string) {
+    // @Param('status') status: number, @Param('agent_id') agent_id: string
+    // query @Param('status') status: number, @Param('agent_id') agent_id: string
+    return await this.quoteService.findByFilter(status, agent_id);
   }
 
   @Get(':id')

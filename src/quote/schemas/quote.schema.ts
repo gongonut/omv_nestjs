@@ -26,16 +26,19 @@ export class Quote {
   client_observations: string;
 
   @Prop()
-  agent_name: string;
+  agent_id?: string;
 
   @Prop()
-  agent_phone: string;
+  agent_name?: string;
 
   @Prop()
-  agent_email: string;
+  agent_phone?: string;
 
   @Prop()
-  agent_city: string;
+  agent_email?: string;
+
+  @Prop()
+  agent_city?: string;
 
   @Prop()
   status: number;

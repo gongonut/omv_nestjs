@@ -10,6 +10,7 @@ import { GeneralSchema } from './schemas/general.schema';
     MongooseModule.forFeature([{ name: General.name, schema: GeneralSchema }]),
   ],
   controllers: [GeneralController],
-  providers: [GeneralService]
+  providers: [GeneralService],
+  exports: [GeneralService]
 })
 export class GeneralModule {}
