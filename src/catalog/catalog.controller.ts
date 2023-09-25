@@ -11,6 +11,7 @@ import { Catalog, CatalogSchema } from './schemas/catalog.schema';
 import * as fs from 'fs';
 import { Observable, of } from 'rxjs';
 import path, { join } from 'path';
+import * as sharp from 'sharp'
 
 
 interface ImgName { row: number, col: number, name: string }
@@ -45,20 +46,25 @@ export class CatalogController {
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    
+    if (!fs.existsSync(join(__dirname + this.IMAGEFOLDER))) fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
     /*
-    if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-}
-    */
-
     fs.rmSync(join(__dirname + this.IMAGEFOLDER), { recursive: true, force: true });
     fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
+    */
+
     let apath = '';
-    files.forEach(image => {
+    files.forEach(async image => {
+      // console.log(image.);
       const upr = image.originalname.toUpperCase();
       apath = join(__dirname + `${this.IMAGEFOLDER}${upr}`)
-      fs.writeFileSync(apath, image.buffer);
+      if (image.size > 600000) {
+        await sharp(image.buffer)
+        .resize({
+          fit: sharp.fit.contain,
+          width: 700
+      })
+        .toFile(apath);  
+      } else {fs.writeFileSync(apath, image.buffer); }
     })
     return { status: 200, message: apath }
   }
