@@ -12,4 +12,17 @@ export class CreateGeneralDto {
     @IsNumber()
     @IsOptional()
     consecutive: number;
+
+    @IsOptional()
+    name: string;
+
+    @IsOptional()
+    site: string;
+
+    @IsOptional()
+    phone: string;
+
+    @IsOptional()
+    address: string;
+
 }

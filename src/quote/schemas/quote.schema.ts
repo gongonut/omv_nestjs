@@ -7,11 +7,11 @@ export type QuoteDocument = HydratedDocument<Quote>;
 @Schema()
 export class Quote {
 
-  @Prop({required: true})
-  client_name: string;
-
   @Prop()
   consecutive?: string;
+
+  @Prop({required: true})
+  client_name: string;
 
   @Prop()
   client_contact: string;
@@ -32,19 +32,19 @@ export class Quote {
   agent_name?: string;
 
   @Prop()
+  agent_city?: string;
+
+  @Prop()
   agent_phone?: string;
 
   @Prop()
   agent_email?: string;
 
-  @Prop()
-  agent_city?: string;
+  @Prop([Object])
+  itemList: object[];
 
   @Prop()
   status: number;
-
-  @Prop([Object])
-  itemList: object[];
 
   @Prop()
   date: number;
@@ -54,6 +54,18 @@ export class Quote {
 
   @Prop()
   p_iva: number;
+
+  @Prop()
+  error: string;
+
+  @Prop()
+  condList: string[];
+
+  @Prop()
+  hideTotal: boolean;
+
+  @Prop()
+  crome_image: string;
 }
 
 export const QuoteSchema = SchemaFactory.createForClass(Quote);

@@ -24,7 +24,7 @@ export class GeneralService {
 
   async findOne() {
     // return await this.generalModel.findById('only').exec();
-    return await this.generalModel.find({ id: 'only' }).exec();
+    return await this.generalModel.findOne({ id: 'only' }).exec();
   }
 
   async update(updateGeneralDto: UpdateGeneralDto) {
@@ -37,7 +37,7 @@ export class GeneralService {
     // return await this.generalModel.findByIdAndUpdate(id, updateQuoteDto, {new: true} );
     const general = await this.generalModel.findOne({ id: 'only' });
     if (general) {
-      if (general.consecutive) { general.consecutive++; } else { general.consecutive = 0; }
+      if (general.consecutive) { general.consecutive++; } else { general.consecutive = 1; }
       await this.generalModel.replaceOne({ id: 'only' }, general, { upsert: true })};
       return general.consecutive;
   }

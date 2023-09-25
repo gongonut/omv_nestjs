@@ -10,6 +10,12 @@ export class Users {
   @Prop()
   name: string;
 
+  @Prop()
+  phone: string;
+
+  @Prop()
+  city: string;
+
   @Prop({unique: true})
   email: string;
 
@@ -17,7 +23,7 @@ export class Users {
   password: string;
 
   @Prop()
-  rol?: string[];
+  rol: string[];
 
   
 }

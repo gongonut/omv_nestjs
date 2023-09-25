@@ -46,9 +46,13 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: RegisterUserDto) {
-    const { rol } = updateUserDto;
+    // const { rol } = updateUserDto;
     const filter = { '_id': id };
-    const update = { 'rol': rol };
+    const update = {
+      'name': updateUserDto.name,
+      'phone': updateUserDto.phone,
+      'city': updateUserDto.city,
+      'rol': updateUserDto.rol };
     
     // `doc` is the document _after_ `update` was applied because of
     // `new: true`

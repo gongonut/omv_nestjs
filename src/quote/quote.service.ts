@@ -13,9 +13,11 @@ export class QuoteService {
     @InjectModel(Quote.name) private quoteModel: Model<Quote>,
     @Inject(EmailService) private readonly emails: EmailService,
     @Inject(GeneralService) private generalService: GeneralService
-    ) {}
+  ) { }
 
   async create(createQuoteDto: CreateQuoteDto): Promise<Quote> {
+    const consecutive = await this.generalService.consecutive();
+    createQuoteDto.consecutive = consecutive.toString().padStart(8, '0');
     const createdQuote = new this.quoteModel(createQuoteDto);
     return await createdQuote.save();
   }
@@ -26,24 +28,23 @@ export class QuoteService {
 
   async findByFilter(status: number, agent_id: string): Promise<Quote[]> {
     if (!status) throw new HttpException('EMPTY_DATA', 401);
-    if (status == 2) return await this.quoteModel.find({status, agent_id}).exec();
-    return await this.quoteModel.find({status}).exec();
+    if (status == 2) return await this.quoteModel.find({ status, agent_id }).exec();
+    return await this.quoteModel.find({ status }).exec();
   }
 
   async findOne(id: string) {
-    return await this.quoteModel.findById({consecutive: id}).exec();
+    return await this.quoteModel.findById({ consecutive: id }).exec();
   }
- 
-  async update(id: string, updateQuoteDto: UpdateQuoteDto): Promise<Quote> {
-    if (!updateQuoteDto.consecutive || updateQuoteDto.consecutive.length === 0) {
-      updateQuoteDto.consecutive = (await this.generalService.consecutive()).toString().padStart(8, '0');
-    }
-    // si user no es el mismo, no lo actualiza
 
+  async update(id: string, updateQuoteDto: UpdateQuoteDto): Promise<Quote> {
+ 
+    // si user no es el mismo, no lo actualiza
+    const prevQuote = await this.quoteModel.findById(id);
+    if (prevQuote.status === 4) throw new HttpException('FORBIDDEN', 403);
     if (updateQuoteDto.status === 4) {
       this.emails.quoteEmail(updateQuoteDto);
     }
-    return await this.quoteModel.findByIdAndUpdate(id, updateQuoteDto, {new: true} );
+    return await this.quoteModel.findByIdAndUpdate(id, updateQuoteDto, { new: true });
   }
 
   async remove(id: string) {

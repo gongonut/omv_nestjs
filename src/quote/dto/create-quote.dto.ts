@@ -12,7 +12,7 @@ export class CreateQuoteDto {
   client_contact: string;
 
   @IsOptional()
-  client_phone?: string;
+  client_phone: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -37,12 +37,13 @@ export class CreateQuoteDto {
   agent_observations: string;
 
   @IsNotEmpty()
+  itemList: object[];
+
+  @IsNotEmpty()
   @IsNumber()
   status: number;
 
   @IsNotEmpty()
-  itemList: object[];
-
   @IsNumber()
   date: number;
 
@@ -51,4 +52,17 @@ export class CreateQuoteDto {
 
   @IsOptional()
   p_iva: number;
+
+  @IsOptional()
+  error: string;
+
+  @IsOptional()
+  condList: string[];
+
+  @IsOptional()
+  hideTotal: boolean;
+
+  @IsOptional()
+  crome_image: string;
+
 }

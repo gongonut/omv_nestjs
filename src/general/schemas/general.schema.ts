@@ -19,6 +19,18 @@ export class General {
   @Prop()
   consecutive: number;
 
+  @Prop()
+  name: string;
+
+  @Prop()
+  site: string;
+
+  @Prop()
+  phone: string;
+
+  @Prop()
+  address: string;
+
 }
 
 export const GeneralSchema = SchemaFactory.createForClass(General);
