@@ -32,6 +32,11 @@ export class QuoteService {
     return await this.quoteModel.find({ status }).exec();
   }
 
+  async findByDate(date_in: number, date_out: string): Promise<Quote[]> {
+    if (!date_in || !date_out) throw new HttpException('EMPTY_DATA', 401);
+    return await this.quoteModel.find({date: {$gt:date_in, $lt:date_out}}).exec();
+  }
+
   async findOne(id: string) {
     return await this.quoteModel.findById({ consecutive: id }).exec();
   }

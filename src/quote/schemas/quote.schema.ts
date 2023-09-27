@@ -66,6 +66,10 @@ export class Quote {
 
   @Prop()
   crome_image: string;
+
+  @Prop()
+  total: number;
+
 }
 
 export const QuoteSchema = SchemaFactory.createForClass(Quote);

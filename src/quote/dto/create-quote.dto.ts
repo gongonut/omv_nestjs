@@ -65,4 +65,7 @@ export class CreateQuoteDto {
   @IsOptional()
   crome_image: string;
 
+  @IsOptional()
+  total: number;
+
 }

@@ -47,6 +47,15 @@ export class QuoteController {
     return await this.quoteService.findByFilter(status, agent_id);
   }
 
+  @Roles('Q')
+  @UseGuards(RolesGuard)
+  @Get('filter/datebetween?')
+  async findBydatebt(@Query('date_in') date_in: number, @Query('date_out') date_out: string) {
+    // @Param('status') status: number, @Param('agent_id') agent_id: string
+    // query @Param('status') status: number, @Param('agent_id') agent_id: string
+    return await this.quoteService.findByDate(date_in, date_out);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.quoteService.findOne(id);
