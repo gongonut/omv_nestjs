@@ -44,11 +44,13 @@ export class CatalogController {
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    if (!fs.existsSync(join(__dirname + this.IMAGEFOLDER))) fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
     /*
+    if (!fs.existsSync(join(__dirname + this.IMAGEFOLDER))) fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
+    */
+    
     fs.rmSync(join(__dirname + this.IMAGEFOLDER), { recursive: true, force: true });
     fs.mkdirSync(join(__dirname + this.IMAGEFOLDER));
-    */
+    
 
     let apath = '';
     files.forEach(async image => {
