@@ -1,17 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, HttpException, HttpStatus, UploadedFile, Res, UploadedFiles, Req } from '@nestjs/common';
+import { Controller, Get, Post, Param, UseInterceptors, UploadedFile, Res, UploadedFiles } from '@nestjs/common';
 import { CatalogService } from './catalog.service';
-import { CreateCatalogDto } from './dto/create-catalog.dto';
-import { UpdateCatalogDto } from './dto/update-catalog.dto';
-import { AnyFilesInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 // import { extname } from 'path';
 import { CellErrorValue, CellFormulaValue, CellHyperlinkValue, CellRichTextValue, CellSharedFormulaValue, Workbook } from 'exceljs';
 // import { Stream } from 'stream';
-import { Catalog, CatalogSchema } from './schemas/catalog.schema';
+import { Catalog } from './schemas/catalog.schema';
 import * as fs from 'fs';
 import { Observable, of } from 'rxjs';
-import path, { join } from 'path';
-import * as sharp from 'sharp'
+import { join } from 'path';
+// import * as sharp from 'sharp'
 
 
 interface ImgName { row: number, col: number, name: string }
@@ -54,9 +52,11 @@ export class CatalogController {
 
     let apath = '';
     files.forEach(async image => {
-      // console.log(image.);
       const upr = image.originalname.toUpperCase();
-      apath = join(__dirname + `${this.IMAGEFOLDER}${upr}`)
+      apath = join(__dirname + `${this.IMAGEFOLDER}${upr}`);
+      fs.writeFileSync(apath, image.buffer);
+
+      /*
       if (image.size > 400000) {
         await sharp(image.buffer)
         .resize({
@@ -65,6 +65,7 @@ export class CatalogController {
       })
         .toFile(apath);  
       } else {fs.writeFileSync(apath, image.buffer); }
+      */
     })
     return { status: 200, message: apath }
   }
