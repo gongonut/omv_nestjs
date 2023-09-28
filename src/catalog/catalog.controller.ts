@@ -57,11 +57,11 @@ export class CatalogController {
       // console.log(image.);
       const upr = image.originalname.toUpperCase();
       apath = join(__dirname + `${this.IMAGEFOLDER}${upr}`)
-      if (image.size > 600000) {
+      if (image.size > 400000) {
         await sharp(image.buffer)
         .resize({
           fit: sharp.fit.contain,
-          width: 700
+          width: 600
       })
         .toFile(apath);  
       } else {fs.writeFileSync(apath, image.buffer); }

@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, UseGuards } from '@nestjs/common';
 import { LoginUserDto } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { hash, compare } from 'bcrypt'
@@ -6,6 +6,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Users } from './schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
+import { Roles } from './roles.decorator';
+import { RolesGuard } from './roles.guard';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +17,8 @@ export class UsersService {
     private jwtAuthServ: JwtService
   ) {}
 
+  @Roles('U')
+  @UseGuards(RolesGuard)
   async create(registerUserDto: RegisterUserDto) {
     const { password } = registerUserDto;
     const plainToHash = await hash(password, Number(process.env.HASH));
