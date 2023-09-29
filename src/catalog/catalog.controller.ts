@@ -140,10 +140,9 @@ export class CatalogController {
           'descripcion_comercial': worksheetProd.getRow(i).getCell(2).value,
           'descripcion_larga': worksheetProd.getRow(i).getCell(3).value,
           'material': worksheetProd.getRow(i).getCell(4).value,
-          'medidas_diametro': worksheetProd.getRow(i).getCell(5).value,
+          'medidas_omv': worksheetProd.getRow(i).getCell(5).value,
           'area_impresion': worksheetProd.getRow(i).getCell(6).value,
           'tecnica_marca_descripcion': worksheetProd.getRow(i).getCell(7).value,
-
           'imagen': ImageData,
           'precio': worksheetProd.getRow(i).getCell(10).value,
           'existencia': worksheetProd.getRow(i).getCell(11).value,

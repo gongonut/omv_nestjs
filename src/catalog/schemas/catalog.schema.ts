@@ -30,6 +30,18 @@ export class Catalog {
 
     @Prop()
     materiales?: object[];
+
+    @Prop()
+    material?: string;
+
+    @Prop()
+    medidas_omv?: string;
+
+    @Prop()
+    area_impresion?: string;
+
+    @Prop()
+    tecnica_marca_descripcion?: string;
  
 }
 
