@@ -28,8 +28,6 @@ export class CatalogController {
     return this.catalogService.findAll();
   }
 
-  @Roles('P')
-  @UseGuards(RolesGuard)
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
     // console.log(join('./images', imagename));
@@ -45,6 +43,8 @@ export class CatalogController {
   }
   */
 
+  @Roles('P')
+  @UseGuards(RolesGuard)
   @Post('images2dtbase')
   @UseInterceptors(FilesInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
