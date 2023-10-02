@@ -8,6 +8,6 @@ export class LoginUserDto {
     password: string;
 
     @IsOptional()
-    rol: string[];
+    rol?: string[];
 
 }

@@ -7,7 +7,7 @@ export class RegisterUserDto extends PartialType(LoginUserDto) {
     name: string;
 
     @IsOptional()
-    phone: string;
+    phone?: string;
 
     @IsOptional()
     city?: string;

@@ -6,8 +6,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Users } from './schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
-import { Roles } from './roles.decorator';
-import { RolesGuard } from './roles.guard';
 
 @Injectable()
 export class UsersService {
@@ -17,8 +15,7 @@ export class UsersService {
     private jwtAuthServ: JwtService
   ) {}
 
-  @Roles('U')
-  @UseGuards(RolesGuard)
+ 
   async create(registerUserDto: RegisterUserDto) {
     const { password } = registerUserDto;
     const plainToHash = await hash(password, Number(process.env.HASH));
@@ -29,6 +26,15 @@ export class UsersService {
 
   async login(loginUserDto: LoginUserDto) {
     //    console.log('service', registerUserDto );
+    // Verifica si existe la coleccion
+    if (await this.usersModel.count() === 0) {
+      const plainToHash = await hash('user001', Number(process.env.HASH));
+      const reguser: RegisterUserDto ={
+        name: 'user', email:'user@user.user', password: plainToHash, rol: ['Q', 'P', 'W', 'U']
+      }
+      this.usersModel.create(reguser);
+      throw new HttpException('NEW_USER_user@user.user_PASS_user001', 452);
+    }
     const {email, password} = loginUserDto;
     const user = await this.usersModel.findOne({email});
     if(!user) throw new HttpException('USER_NOT_FOUND', 404);

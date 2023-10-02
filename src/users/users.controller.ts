@@ -12,6 +12,8 @@ import { Roles } from './roles.decorator';
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
+  @Roles('U')
+  @UseGuards(RolesGuard)
   @Post('register')
   create(@Body() userObject: RegisterUserDto) {
     return this.usersService.create(userObject);
@@ -22,8 +24,8 @@ export class UsersController {
     return this.usersService.login(userObject);
   }
 
-  // @Roles('U')
-  // @UseGuards(RolesGuard)
+  @Roles('U')
+  @UseGuards(RolesGuard)
   @Get()
   async findAll() {
     return await this.usersService.findAll();
@@ -36,15 +38,15 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  // @Roles('U')
-  // @UseGuards(RolesGuard)
+  @Roles('U')
+  @UseGuards(RolesGuard)
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: RegisterUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
-  // @Roles('U')
-  // @UseGuards(RolesGuard)
+  @Roles('U')
+  @UseGuards(RolesGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);

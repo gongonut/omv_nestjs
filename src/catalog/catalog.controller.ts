@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, UseInterceptors, UploadedFile, Res, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Param, UseInterceptors, UploadedFile, Res, UploadedFiles, UseGuards } from '@nestjs/common';
 import { CatalogService } from './catalog.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -9,6 +9,8 @@ import { Catalog } from './schemas/catalog.schema';
 import * as fs from 'fs';
 import { Observable, of } from 'rxjs';
 import { join } from 'path';
+import { Roles } from 'src/users/roles.decorator';
+import { RolesGuard } from 'src/users/roles.guard';
 // import * as sharp from 'sharp'
 
 
@@ -26,6 +28,8 @@ export class CatalogController {
     return this.catalogService.findAll();
   }
 
+  @Roles('P')
+  @UseGuards(RolesGuard)
   @Get(':imagename')
   getImageByName(@Param('imagename') imagename, @Res() res): Observable<object> {
     // console.log(join('./images', imagename));
@@ -94,6 +98,8 @@ export class CatalogController {
   */
 
 
+  @Roles('P')
+  @UseGuards(RolesGuard)
   @Post('excel2Mongodb')
   @UseInterceptors(
     FileInterceptor(

@@ -56,21 +56,22 @@ export class QuoteController {
     return await this.quoteService.findByDate(date_in, date_out);
   }
 
+  @Roles('Q')
+  @UseGuards(RolesGuard)
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.quoteService.findOne(id);
   }
 
+  @Roles('Q')
+  @UseGuards(RolesGuard)
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateQuoteDto: UpdateQuoteDto) {
-    /*
-    if (updateQuoteDto.status === 3) {
-      await this.emailService.quoteEmail(updateQuoteDto);
-    }
-    */
     return await this.quoteService.update(id, updateQuoteDto);
   }
 
+  @Roles('Q')
+  @UseGuards(RolesGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.quoteService.remove(id);
